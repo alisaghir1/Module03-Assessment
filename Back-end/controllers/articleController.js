@@ -1,4 +1,6 @@
 import Example from '../models/ArticleModel.js';
+import fs from 'fs';
+import path from 'path';
 
 class Controller {
 
@@ -29,12 +31,36 @@ class Controller {
 
   static async updateExample(req, res) {
     try {
-      const [updatedexample] = await Example.update(req.body, {where: {id: req.params.id}});
-      if (!updatedexample) {
-        return res.status(404).json('please enter the fields you want to edit');
+      const oldExample = await Example.findByPk(req.params.id);
+      const oldImage = oldExample.image;
+
+      const newData = { ...req.body };
+
+      if (req?.file?.filename) {
+        newData.image = req?.file?.filename;
       }
-      const example = await Example.findByPk(req.params.id);
-      return res.status(200).json(example);
+
+      const [updatedExample] = await Example.update(newData, {
+        where: {
+          id: req.params.id,
+        },
+      });
+
+      if (!updatedExample) {
+        return res.status(404).json("please enter the fields you want to edit");
+      }
+
+      if (oldImage) {
+        const oldImagePath = path.join("/uploads", "uploads", oldImage);
+        if (fs.existsSync(oldImagePath)) {
+          fs.unlinkSync(oldImagePath);
+        } else {
+          console.error("File not found:", oldImagePath);
+        }
+      }
+      const newExample = await Example.findByPk(req.params.id);
+
+      return res.status(200).json(newExample);
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
