@@ -10,7 +10,7 @@ class usersController {
   //create user
   static async createUser(req, res) {
     try {
-      const { username, password } = req.body;
+      const { username, password,userType } = req.body;
       if (!password) {
         return res.status(403).json('password required');
       }
@@ -20,6 +20,7 @@ class usersController {
       const newUser = await User.create({
         username,
         password,
+        userType,
       });
       if (!newUser) {
         return res.status(500).json('error creating user');

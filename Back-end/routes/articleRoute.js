@@ -7,19 +7,19 @@ const exampleRouter = express.Router();
 
 
 //login Example
-exampleRouter.post('/',protect, upload.single('image'), exampleController.createExample);
+exampleRouter.post('/', upload.single('image'), exampleController.createExample);
 
 // Get all Examples
-exampleRouter.get('/',protect, exampleController.getAllExamples);
+exampleRouter.get('/', exampleController.getAllExamples);
 
 //get a Example by ID
-exampleRouter.get('/:id',protect, exampleController.findExampleById);
+exampleRouter.get('/:id', exampleController.findExampleById);
 
 //update Example
-exampleRouter.patch('/:id',protect, exampleController.updateExample);
+exampleRouter.patch('/:id', exampleController.updateExample);
 
 //delete a Example
-exampleRouter.delete('/:id',protect, exampleController.deleteExample);
+exampleRouter.delete('/:id', exampleController.deleteExample);
 
 
 

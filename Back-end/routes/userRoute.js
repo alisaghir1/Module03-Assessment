@@ -12,15 +12,15 @@ userRouter.post('/register', usersController.createUser);
 userRouter.post('/login', usersController.loginUser);
 
 // Get all users
-userRouter.get('/',protect, usersController.getAllUsers);
+userRouter.get('/', usersController.getAllUsers);
 
 //get a user by ID
-userRouter.get('/:id',protect, usersController.findUserById);
+userRouter.get('/:id', usersController.findUserById);
 
 //update user
-userRouter.patch('/:id',protect, usersController.updateUser);
+userRouter.patch('/:id', usersController.updateUser);
 
 //delete a user
-userRouter.delete('/:id',protect, usersController.deleteUser);
+userRouter.delete('/:id', usersController.deleteUser);
 
 export default userRouter;
