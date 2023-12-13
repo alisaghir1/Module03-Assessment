@@ -20,6 +20,10 @@ const User = sequelize.define('User', {
       this.setDataValue('password', bcrypt.hashSync(value, 10));
     },
   },
+  userType: {
+    type: DataTypes.ENUM('user' , 'admin'),
+    allowNull: false,
+  },
 });
 
 User.sync();

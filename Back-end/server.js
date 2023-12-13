@@ -6,7 +6,6 @@ import cors from 'cors';
 import exampleRouter from './routes/articleRoute.js';
 import userRouter from './routes/userRoute.js'
 
-
 const app = express();
 
 
